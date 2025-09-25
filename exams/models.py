@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Exams(models.Model):
     tittle = models.CharField(max_length=100, null=False, blank=False)
