@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DbManageConfig(AppConfig):
+class ExamsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'db_manage'
+    name = 'exams'

@@ -1,9 +1,11 @@
 
 from django.contrib import admin
 from django.urls import path
-from db_manage.views import home
+from medics.views import medics
+from exams.views import exams
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', medics),
+    path('', exams),
 ]

@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'db_manage.apps.DbManageConfig',
+    'medics.apps.MedicsConfig',
+    'exams.apps.ExamsConfig',
 ]
 
 MIDDLEWARE = [
