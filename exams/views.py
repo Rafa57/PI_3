@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
+from .models import Exams
 
-# Create your views here.
-def exams(request):
-    return render(request, "exams/home.html")
+def exams_list(request):
+    exams = Exams.objects.all
+    return render(request, "exams/exams_list.html", {"exames": exams})
