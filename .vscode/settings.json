@@ -1,6 +1,6 @@
 {
     "editor.formatOnSave": true,
-    "files.autoSave": "onFocusChange",
+    "files.autoSave": "afterDelay",
     "files.associations": {
         "**/templates/**/*html": "django-html"
     },

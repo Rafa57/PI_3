@@ -1,6 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 
-# Create your views here.
-def patients(request):
-    return render(request, "patients/home.html")
+from .models import Patients
+
+def patients_list(request):
+    patients = Patients.objects.all
+    return render(request, "patients/patients_list.html", {"pacientes": patients})
+
+def get_patient(request, cpf):
+    patient = get_object_or_404(Patients, cpf=cpf)
+    return render(request, "patients/patients_list.html", {"patients": [patient]})

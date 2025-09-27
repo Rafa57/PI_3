@@ -11,8 +11,8 @@ cpf_validator = RegexValidator(
 class Patients(models.Model):
     cpf = models.CharField(
         primary_key=True,
-        max_length=11,
         unique=True,
+        max_length=11,
         validators=[cpf_validator],
         null=False,
         blank=False,
@@ -23,3 +23,6 @@ class Patients(models.Model):
     age = models.SmallIntegerField(null=False, blank=False)
     addres = models.CharField(null=False, blank=False, max_length=100)
     phone = models.IntegerField(null=False, blank=False)
+
+def __str__(self):
+    return self.name
