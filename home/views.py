@@ -2,5 +2,5 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
-def medics_list(request):
-    return render(request, "medics/medics_list.html")
+def home(request):
+    return render(request, "home/home.html")

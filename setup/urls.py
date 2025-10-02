@@ -2,13 +2,15 @@ from django.contrib import admin
 from django.urls import path
 
 from exams.views import exams_list
-from medics.views import medics
-from patients.views import patients_list, get_patient
+from medics.views import medics_list
+from patients.views import patients_list # get_patient
+from home.views import home
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", exams_list),
-    path("medics/", medics),
+    path("", home),
+    path("exams/", exams_list),
+    path("medics/", medics_list),
     path("patients/", patients_list),
-    path("patients/<str:cpf>/", get_patient, name="get_patient"),
+    # path("patients/<str:cpf>/", get_patient, name="get_patient"),
 ]

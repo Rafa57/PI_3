@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 # Create your models here.
+
 cpf_validator = RegexValidator(
     regex=r'^\d{11}$',
     message="CPF deve conter 11 dígitos numéricos",
@@ -12,7 +13,6 @@ class Patients(models.Model):
     cpf = models.CharField(
         primary_key=True,
         unique=True,
-        max_length=11,
         validators=[cpf_validator],
         null=False,
         blank=False,

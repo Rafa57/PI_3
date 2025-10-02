@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
             <th>Telefone</th>
         </tr>
 
-        <div class="patients_list">
+        {% comment %} <div class="list">
             {% for p in pacientes %}
                 <tr>
                     <td>{{ p.cpf }}</td>
@@ -26,13 +26,39 @@
                     <td>{{ p.age }}</td>
                     <td>{{ p.addres }}</td>
                     <td>{{ p.phone }}</td>
+                    <td>{{ p.exams.all() }}</td>
                 </tr>
+            {% endfor %}
+        </div> {% endcomment %}
+
+        <div class="list">
+            {% for p in patients %}
+                <h2>{{ p.name }} (CPF: {{ p.cpf }})</h2>
+
+                {% if p.exams.all %}
+                    <table>
+                        <tr class="t_header">
+                            <th>Tipo</th>
+                            <th>Data agendada</th>
+                            <th>Status</th>
+                        </tr>
+                        {% for p in patients.exams.all %}
+                            <tr>
+                                <td>{{ exam.exam_type }}</td>
+                                <td>{{ exam.scheduled_date }}</td>
+                                <td>{{ exam.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>Sem exames cadastrados.</p>
+                {% endif %}
             {% endfor %}
         </div>
 
-        <div class="patient">
+        {% comment %} <div class="patient">
             <p>{{ paciente.name }}</p>
-        </div>
+        </div> {% endcomment %}
     </table>
 </body>
 
