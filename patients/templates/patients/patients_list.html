@@ -18,47 +18,43 @@
             <th>Telefone</th>
         </tr>
 
-        {% comment %} <div class="list">
-            {% for p in pacientes %}
-                <tr>
-                    <td>{{ p.cpf }}</td>
-                    <td>{{ p.name }}</td>
-                    <td>{{ p.age }}</td>
-                    <td>{{ p.addres }}</td>
-                    <td>{{ p.phone }}</td>
-                    <td>{{ p.exams.all() }}</td>
-                </tr>
-            {% endfor %}
-        </div> {% endcomment %}
+        {% for p in pacientes %}
+            <tr>
+                <td>{{ p.cpf }}</td>
+                <td>{{ p.name }}</td>
+                <td>{{ p.age }}</td>
+                <td>{{ p.addres }}</td>
+                <td>{{ p.phone }}</td>
+            </tr>
+        {% endfor %}
+    
+        {% for p in pacientes %}
+            <h2>{{ p.name }} (CPF: {{ p.cpf }})</h2>
+            <label for="phone">Telefone: </label>
+            <p id="phone">{{ p.phone }}</p>
 
-        <div class="list">
-            {% for p in patients %}
-                <h2>{{ p.name }} (CPF: {{ p.cpf }})</h2>
+            <label for=""></label>
 
-                {% if p.exams.all %}
-                    <table>
-                        <tr class="t_header">
-                            <th>Tipo</th>
-                            <th>Data agendada</th>
-                            <th>Status</th>
+            {% if p.exams.all %}
+                <table>
+                    <tr class="t_header">
+                        <th>Tipo</th>
+                        <th>Data agendada</th>
+                        <th>Status</th>
+                    </tr>
+
+                    {% for exam in p.exams.all %}
+                        <tr>
+                            <td>{{ exam.exam_type }}</td>
+                            <td>{{ exam.scheduled_date }}</td>
+                            <td>{{ exam.status }}</td>
                         </tr>
-                        {% for p in patients.exams.all %}
-                            <tr>
-                                <td>{{ exam.exam_type }}</td>
-                                <td>{{ exam.scheduled_date }}</td>
-                                <td>{{ exam.status }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                {% else %}
-                    <p>Sem exames cadastrados.</p>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        {% comment %} <div class="patient">
-            <p>{{ paciente.name }}</p>
-        </div> {% endcomment %}
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Sem exames cadastrados.</p>
+            {% endif %}
+        {% endfor %}
     </table>
 </body>
 

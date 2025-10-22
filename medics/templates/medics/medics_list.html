@@ -12,10 +12,19 @@
     <table class="medics">
         <th>
             <tr>
-                <td>Nome</td>
-                <td>Especialização</td>
-                <td>Data de contratação</td>
+                <th>CRM</th>
+                <th>Nome</th>
+                <th>Especialização</th>
+                <th>Data de contratação</th>
             </tr>
+            {% for m in medicos %}
+                <tr>
+                    <td>{{ m.crm }}</td>
+                    <td>{{ m.name }}</td>
+                    <td>{{ m.especialzation }}</td>
+                    <td>{{ m.hire_date }}</td>
+                </tr>
+            {% endfor %}
         </th>
     </table>
 </body>
