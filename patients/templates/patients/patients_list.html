@@ -21,39 +21,11 @@
         {% for p in pacientes %}
             <tr>
                 <td>{{ p.cpf }}</td>
-                <td>{{ p.name }}</td>
+                <td>{{ p.name.upper }}</td>
                 <td>{{ p.age }}</td>
                 <td>{{ p.addres }}</td>
                 <td>{{ p.phone }}</td>
             </tr>
-        {% endfor %}
-    
-        {% for p in pacientes %}
-            <h2>{{ p.name }} (CPF: {{ p.cpf }})</h2>
-            <label for="phone">Telefone: </label>
-            <p id="phone">{{ p.phone }}</p>
-
-            <label for=""></label>
-
-            {% if p.exams.all %}
-                <table>
-                    <tr class="t_header">
-                        <th>Tipo</th>
-                        <th>Data agendada</th>
-                        <th>Status</th>
-                    </tr>
-
-                    {% for exam in p.exams.all %}
-                        <tr>
-                            <td>{{ exam.exam_type }}</td>
-                            <td>{{ exam.scheduled_date }}</td>
-                            <td>{{ exam.status }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <p>Sem exames cadastrados.</p>
-            {% endif %}
         {% endfor %}
     </table>
 </body>

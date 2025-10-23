@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cadastro</title>
+</head>
+<body>
+    <h1>Editar Cadastro</h1>
+    <h2>{{patient.name}}</h2>
+
+    {% if succes %}
+        <p style="color:green;">Paciente editado com sucesso!</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="name">Nome:</label>
+        <input type="text" name="name" placeholder="Nome" required><br>
+
+        <label for="age">Idade:</label>
+        <input type="number" name="age" placeholder="Idade" required><br>
+
+        <label for="addres">Endereço:</label>
+        <input type="text" name="addres" placeholder="Endereço" required><br>
+
+        <label for="phone">Telefone:</label>
+        <input type="text" name="phne" placeholder="Telefone"><br>
+
+        <button type="submit">Salvar</button>
+        <button type="button">Lista de Pacientes</button>
+        <button type="button" onclick="window.history.back()">Voltar</button>
+    </form>
+</body>
+</html>

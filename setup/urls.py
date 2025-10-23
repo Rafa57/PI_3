@@ -3,7 +3,7 @@ from django.urls import path
 
 from exams.views import exams_list
 from medics.views import medics_list
-from patients.views import patients_list, get_patient, add_patient
+from patients.views import patients_list, get_patient, add_patient, update_patient
 from home.views import home
 
 
@@ -14,5 +14,6 @@ urlpatterns = [
     path("medics/", medics_list),
     path("patients/", patients_list),
     path("patients/add/", add_patient, name="add_patient"),
+    path("patients/update/<str:cpf>/", update_patient, name="update_patient"),
     path("patients/<str:cpf>/", get_patient, name="get_patient"),
 ]

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha do Paciente</title>
+</head>
+<body>
+
+    <h2>{{ patient.name.upper }}</h2>
+
+    <label for="cpf">CPF:</label>
+    <p name="cpf">{{ patient.cpf }}</p>
+    
+    <label for="age">Idade:</label>
+    <p name="age">{{ patient.age }}</p>
+
+    <label for="addres">Endereço:</label>
+    <p name="addres">{{ patient.addres }}</p>
+
+    <label for="phone">Telefone:</label>
+    <p id="phone">{{ patient.phone }}</p>
+
+    {% if patient.exams.all %}
+        <table>
+            <tr class="t_header">
+                <th>Tipo</th>
+                <th>Data agendada</th>
+                <th>Status</th>
+            </tr>
+
+            {% for exam in p.exams.all %}
+                <tr>
+                    <td>{{ exam.exam_type }}</td>
+                    <td>{{ exam.scheduled_date }}</td>
+                    <td>{{ exam.status }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Sem exames cadastrados.</p>
+    {% endif %}
+
+    <button type="button" onclick="history.back()">Voltar</button>
+    <button type="submit">Atualizar Cadastro</button>
+    <button type="submit">Apagar Cadastro</button>
+</body>
+</html>
