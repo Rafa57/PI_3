@@ -8,8 +8,9 @@
 <body>
 
     <h1>Cadastro de Pacientes</h1>
-    <form method="POST">
+    <form method="POST" id="patient_form">
         {% csrf_token %}
+
         <label for="cpf">CPF:</label>
         <input type="text" name="cpf" placeholder="CPF" required><br>
 
