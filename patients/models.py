@@ -4,6 +4,12 @@ from django.core.validators import RegexValidator
 # Create your models here.
 
 class Patients(models.Model):
+    PATIENT_STATUS = [
+        ("pendente", "Pendente"),
+        ("em_andamento", "Em andamento"),
+        ("pago", "Pago")
+    ] 
+    # DEVE SER MUDADO
 
     cpf = models.CharField(primary_key=True, unique=True, max_length=11, null=False, blank=False)
     name = models.CharField(null=False, blank=False, max_length=100)
@@ -17,6 +23,7 @@ class Patients(models.Model):
     @classmethod
     def create_patient(cls, cpf, name, age, addres, phone):
         patient = cls(cpf=cpf, name=name, age=age, addres=addres, phone=phone)
+
         patient.save()
         return f"O usuário {patient.name} foi adicinado com sucesso"
 

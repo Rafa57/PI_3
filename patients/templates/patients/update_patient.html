@@ -4,33 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Cadastro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "patients/style.css" %}">
 </head>
 <body>
-    <h1>Editar Cadastro</h1>
-    <h2>{{patient.name}}</h2>
 
-    {% if succes %}
-        <p style="color:green;">Paciente editado com sucesso!</p>
+    <header>
+        <a href="{% url 'get_patient' patient.cpf %}" class="head_btn">
+            <img src="{% static "patients/icons/back_icon.png" %}" alt="" srcset="">
+        </a>
+
+        <a href="{% url 'home' %}" class="head_btn">
+            <img src="{% static 'patients/icons/home_icon.png' %}" alt="home">
+        </a>
+
+        <h1>{{patient.name}}</h1>
+    </header>
+    
+    <h2>Editar Cadastro</h2>
+
+    {% if success %}
+            <p style="color:green;">As alterações foram salvas!</p>
     {% endif %}
 
     <form method="POST">
         {% csrf_token %}
 
         <label for="name">Nome:</label>
-        <input type="text" name="name" placeholder="Nome" required><br>
+        <input type="text" name="name" value="{{ patient.name }}" required><br>
 
         <label for="age">Idade:</label>
-        <input type="number" name="age" placeholder="Idade" required><br>
+        <input type="number" name="age" value="{{ patient.age }}" required><br>
 
         <label for="addres">Endereço:</label>
-        <input type="text" name="addres" placeholder="Endereço" required><br>
+        <input type="text" name="addres" value="{{ patient.addres }}" required><br>
 
         <label for="phone">Telefone:</label>
-        <input type="text" name="phne" placeholder="Telefone"><br>
+        <input type="text" name="phone" value="{{ patient.phone }}"><br>
+
+        
 
         <button type="submit">Salvar</button>
-        <button type="button">Lista de Pacientes</button>
-        <button type="button" onclick="window.history.back()">Voltar</button>
+
+        <button type="button" onclick=window.location="{% url 'patients_list' %}">Lista de Pacientes</button>
     </form>
 </body>
 </html>

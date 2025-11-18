@@ -1,0 +1,21 @@
+#back_btn{
+    background-color: #ffffff;
+    border: 0;
+}
+
+.head_btn img{
+    width: 30px;
+}
+
+tr{
+    cursor:pointer;
+}
+
+tbody {
+    border: 0px;
+    border-collapse: collapse;
+}
+
+tbody tr:hover{
+    background-color: #dcebffff;
+}

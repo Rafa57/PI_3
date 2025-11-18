@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha do Paciente</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "patients/style.css" %}">
 </head>
 <body>
+    <header>
+        <a href="{% url 'patients_list' %}" class="head_btn">
+            <img src="{% static "patients/icons/back_icon.png" %}" alt="Voltar">
+        </a>
 
-    <h2>{{ patient.name.upper }}</h2>
+        <h2>{{ patient.name.upper }}</h2>
+    </header>
 
     <label for="cpf">CPF:</label>
     <p name="cpf">{{ patient.cpf }}</p>
@@ -41,8 +48,10 @@
         <p>Sem exames cadastrados.</p>
     {% endif %}
 
-    <button type="button" onclick="history.back()">Voltar</button>
-    <button type="submit">Atualizar Cadastro</button>
+    <button type="button" onclick=window.location="{% url 'patients_list' %}">Voltar</button>
+
+    <button type="submit" onclick=window.location="{% url 'update_patient' patient.cpf %}">Atualizar Cadastro</button>
+
     <button type="submit">Apagar Cadastro</button>
 </body>
 </html>

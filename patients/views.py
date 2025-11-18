@@ -32,12 +32,15 @@ def update_patient(request, cpf):
     patient = get_object_or_404(Patients, cpf=cpf)
     success = False
 
-    if request.method == "PUT":
-        patient.name = request.PUT.get("name")
-        patient.age = request.PUT.get("age")
-        patient.addres = request.PUT.get("addres")
-        patient.phone = request.PUT.get("phone")
+    if request.method == "POST":
+        patient.name = request.POST.get("name")
+        patient.age = request.POST.get("age")
+        patient.addres = request.POST.get("addres")
+        patient.phone = request.POST.get("phone")
         patient.save()
         success = True
 
     return render(request, "patients/update_patient.html", {"patient": patient, "success": success})
+
+def rmv_patient(request, cpf):
+    ...

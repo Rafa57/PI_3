@@ -5,29 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pacientes</title>
-</head>
 
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'patients/style.css' %}">
+</head>
 <body>
-    <h1>Pacientes</h1>
-    <table>
-        <tr class="t_header">
+    <header>
+        <a href="{% url 'home' %}" class="head_btn">
+            <img src="{% static 'patients/icons/back_icon.png' %}" alt="Voltar">
+        </a>
+
+        {% comment %} 
+        <button onclick="window.location='{% url 'home' %}'" id="back_btn">
+            window.location também funciona dentro de aspas
+        </button> 
+        {% endcomment %}
+
+        <h1>Pacientes</h1>
+        
+        <button type="button" onclick=window.location="{% url 'add_patient' %}">Cadastrar Paciente</button>
+    </header>
+    
+    <table style="border: 1px solid black;">
+        <thead>
+            <tr class="t_header">
             <th>CPF</th>
             <th>Nome</th>
             <th>Idade</th>
             <th>Endereço</th>
             <th>Telefone</th>
         </tr>
+        </thead>
 
-        {% for p in pacientes %}
-            <tr>
-                <td>{{ p.cpf }}</td>
-                <td>{{ p.name.upper }}</td>
-                <td>{{ p.age }}</td>
-                <td>{{ p.addres }}</td>
-                <td>{{ p.phone }}</td>
-            </tr>
-        {% endfor %}
+        <tbody>
+            {% for p in pacientes %}
+                <tr onclick=window.location="{% url 'get_patient' p.cpf %}">
+                    <td>{{ p.cpf }}</td>
+                    <td>{{ p.name.upper }}</td>
+                    <td>{{ p.age }}</td>
+                    <td>{{ p.addres }}</td>
+                    <td>{{ p.phone }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
+    
 </body>
 
 </html>

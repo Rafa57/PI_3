@@ -62,7 +62,7 @@ class Exams(models.Model):
         )
         
         new_exam.save()
-        return f"Exame '{exam_type}' para o paciente {patient.name} criado com sucesso!"
+        return f"Exame '{new_exam.exam_type}' para o paciente {patient.name} criado com sucesso!"
 
     
 def __str__(self):
