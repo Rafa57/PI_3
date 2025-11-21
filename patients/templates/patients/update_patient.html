@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Cadastro</title>
+    
     {% load static %}
     <link rel="stylesheet" href="{% static "patients/style.css" %}">
 </head>
@@ -18,13 +19,19 @@
             <img src="{% static 'patients/icons/home_icon.png' %}" alt="home">
         </a>
 
-        <h1>{{patient.name}}</h1>
+        <h1>{{patient.name.upper}}</h1>
     </header>
     
     <h2>Editar Cadastro</h2>
 
     {% if success %}
-            <p style="color:green;">As alterações foram salvas!</p>
+            <p class="msg success">As alterações foram salvas!</p>
+    {% endif %}
+
+    {% if error %}
+        <div class="msg error">
+            {{ error }}
+        </div>
     {% endif %}
 
     <form method="POST">
@@ -41,8 +48,6 @@
 
         <label for="phone">Telefone:</label>
         <input type="text" name="phone" value="{{ patient.phone }}"><br>
-
-        
 
         <button type="submit">Salvar</button>
 

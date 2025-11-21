@@ -6,11 +6,11 @@ from medics.models import Medics
 
 class Exams(models.Model):
     EXAM_TYPES = [
-        ("ultrassonografia", "Ultrassonografia"),
-        ("ressonância magnética", "Ressonancia magnética"),
+        ("ultrassom", "Ultrassonografia"),
+        ("ressonancia_magnetica", "Ressonância magnética"),
         ("radiografia", "Radiografia"),
-        ("hemograma", "exame de sangue"),
-        ("glicemia em jejum", "Glicemia em jejum")
+        ("hemograma", "Exame de sangue"),
+        ("glicemia_jejum", "Glicemia em jejum")
     ]
 
     STATUS_CHOICES = [
@@ -26,12 +26,12 @@ class Exams(models.Model):
         ("pago", "Pago")
     ]
 
-    exam_type = models.CharField(max_length=100, choices=EXAM_TYPES, null=False, blank=False)
-    creation_date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    exam_type = models.CharField(max_length=100, choices=EXAM_TYPES)
+    creation_date = models.DateTimeField(auto_now_add=True)
     scheduled_exam = models.DateTimeField(null=False, blank=False)
-    exam_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="Pendente")
+    exam_status = models.CharField(max_length=50, choices=STATUS_CHOICES)
     exam_value = models.FloatField(null=False, blank=False, default=0.0)
-    pay_status = models.CharField(max_length=50, choices=PAYMENT_STATUS,  default="Pendente")
+    pay_status = models.CharField(max_length=50, choices=PAYMENT_STATUS,  default="pendente")
 
     patient = models.ForeignKey(
         Patients,
@@ -48,22 +48,21 @@ class Exams(models.Model):
     )
 
     @classmethod
-    def create_exam(cls, exam_type, patient, medic, created_date, scheduled_date, exam_status, exam_value, pay_status):
+    def create_exam(cls, exam_type, patient, medic, scheduled_exam, exam_status, exam_value, pay_status):
 
-        new_exam = cls.objects.create(
-            exam_type=exam_type,
-            patient=patient,
-            medic=medic,
-            created_date=created_date,
-            scheduled_date=scheduled_date,
-            exam_status=exam_status,
-            exam_value=exam_value,
-            pay_status=pay_status
+        new_exam = cls.objects.create( # objects.create - salva automaticamente ( não precisa do new_exam.save(). )
+            exam_type = exam_type,
+            patient = patient,
+            medic = medic,
+            scheduled_exam = scheduled_exam,
+            exam_status = exam_status,
+            exam_value = exam_value,
+            pay_status = pay_status
         )
         
         new_exam.save()
         return f"Exame '{new_exam.exam_type}' para o paciente {patient.name} criado com sucesso!"
 
     
-def __str__(self):
-    return f"Tipo: {self.exam_type} | Paciente: {self.patient.name} | Médico: {self.medic.name}"
+    def __str__(self):
+        return f"Tipo: {self.exam_type} | Paciente: {self.patient.name} | Médico: {self.medic.name}"

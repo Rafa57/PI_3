@@ -1,13 +1,19 @@
-#back_btn{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: open Sans, sans-serif;
+}
+
+#back_btn {
     background-color: #ffffff;
     border: 0;
 }
 
-.head_btn img{
+.head_btn img {
     width: 30px;
 }
 
-tr{
+tr {
     cursor:pointer;
 }
 
@@ -16,6 +22,33 @@ tbody {
     border-collapse: collapse;
 }
 
-tbody tr:hover{
+tbody tr:hover {
     background-color: #dcebffff;
+}
+
+.msg {
+    width: fit-content;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.success {
+    background: #d4ffd4;
+    border: 1px solid #60c060;
+}
+
+.error {
+    background: #ffd4d4;
+    border: 1px solid #c06060;
+}
+
+#btn_cancel_del {
+    font-size: 14px;
+    text-decoration: none;
+    padding: 4px;
+    color: #ffffff;
+    background: #c91616;
+    border: 1px solid #660f0f;
+    border-radius: 4px;
 }

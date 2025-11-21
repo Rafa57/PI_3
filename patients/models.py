@@ -4,13 +4,7 @@ from django.core.validators import RegexValidator
 # Create your models here.
 
 class Patients(models.Model):
-    PATIENT_STATUS = [
-        ("pendente", "Pendente"),
-        ("em_andamento", "Em andamento"),
-        ("pago", "Pago")
-    ] 
-    # DEVE SER MUDADO
-
+    
     cpf = models.CharField(primary_key=True, unique=True, max_length=11, null=False, blank=False)
     name = models.CharField(null=False, blank=False, max_length=100)
     age = models.SmallIntegerField(null=False, blank=False)
@@ -26,29 +20,3 @@ class Patients(models.Model):
 
         patient.save()
         return f"O usuário {patient.name} foi adicinado com sucesso"
-
-
-
-
-
-
-
-
-
-
-# cpf_validator = RegexValidator(
-#     regex=r'^\d{11}$',
-#     message="CPF deve conter 11 dígitos numéricos",
-#     code="invalid CPF"
-#     )
-
-# cpf = models.CharField(
-#     primary_key=True,
-#     unique=True,
-#     max_length=11,
-#     validators=[cpf_validator],
-#     null=False,
-#     blank=False,
-#     verbose_name="CPF",
-#     # serialize=True, #já vem True por padrão
-# )

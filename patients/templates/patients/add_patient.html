@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Pacientes</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'patients/style.css' %}">
 </head>
 <body>
 
     <h1>Cadastro de Pacientes</h1>
+
+    {% if success %}
+        <div class="msg success">
+            Paciente adicionado com sucesso.
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="msg error">
+            {{ error }}
+        </div>
+    {% endif %}
+
     <form method="POST" id="patient_form">
         {% csrf_token %}
 
@@ -27,7 +43,7 @@
         <input type="text" name="phone" placeholder="Telefone">
 
         <button type="submit">Salvar</button>
-        <button type="button" onclick="window.history.back()">Voltar</button>
+        <button type="button" onclick="window.location='{% url 'patients_list' %}'">Voltar</button>
     </form>
 
 </body>
