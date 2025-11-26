@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida+</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static "medics/style.css" %}">
+</head>
+<body>
+    <header>
+        <a href="{% url 'medics' %}" class="head_btn">
+            <img src="{% static 'medics/icons/back_icon.png' %}" alt="Voltar">
+        </a>
+
+        <a href="{% url 'home' %}" class="head_btn">
+            <img src="{% static "medics/icons/home_icon.png" %}" alt="Página inicial">
+        </a>
+        <h1>Registrar Médico</h1>
+    </header>
+
+    <form method="POST" id="medic_form">
+        {% csrf_token %}
+
+        <label for="crm">CRM:</label>
+        <input type="text" name="crm" id="crm" required>
+
+        <label for="name">Nome:</label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="spec">Especialização:</label>
+        <input type="text" name="spec" id="spec" required>
+
+        <label for="hire_date">Data de contratação:</label>
+        <input type="date" name="hire_date" id="hire_date" required>
+
+        <div class="btn">
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+</body>
+</html>

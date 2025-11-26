@@ -11,8 +11,8 @@ from home.views import home
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('home.urls')),
+    path("medics/", include('medics.urls')),
     path("exams/", exams_list),
-    path("medics/", medics_list),
     path("patients/", patients_list, name="patients_list"),
     path("patients/add/", add_patient, name="add_patient"),
     path("patients/update/<str:cpf>/", update_patient, name="update_patient"),

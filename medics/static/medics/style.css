@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: open sans, sans-serif;
+}
+
+#back_btn {
+    background-color: #ffffff;
+    border: 0;
+}
+
+.head_btn img {
+    width: 30px;
+}

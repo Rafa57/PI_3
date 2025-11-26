@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        
-    </title>
+    <title>Vida+</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static "medics/style.css" %}">
 </head>
 <body>
-    <h1>Lista de Médicos</h1>
+    <header>
+        <a href="{% url 'home' %}" class="head_btn">
+            <img src="{% static 'medics/icons/back_icon.png' %}" alt="">
+        </a>
+        
+        <h1>Lista de Médicos</h1>
+        
+        <button type="button" onclick="window.location='{% url 'add_medic' %}'">Cadastrar Médico</button>
+    </header>
+    
     <table class="medics">
         <th>
             <tr>
@@ -17,15 +27,18 @@
                 <th>Especialização</th>
                 <th>Data de contratação</th>
             </tr>
-            {% for m in medicos %}
+        </th>
+
+        <tbody>
+            {% for m in medics %}
                 <tr>
                     <td>{{ m.crm }}</td>
                     <td>{{ m.name }}</td>
-                    <td>{{ m.especialzation }}</td>
+                    <td>{{ m.spec }}</td>
                     <td>{{ m.hire_date }}</td>
                 </tr>
             {% endfor %}
-        </th>
+        </tbody>
     </table>
 </body>
 </html>
