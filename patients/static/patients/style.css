@@ -13,13 +13,17 @@ body {
     width: 30px;
 }
 
-tr {
-    cursor:pointer;
+table{
+    border-collapse: collapse;
 }
 
 tbody {
     border: 0px;
     border-collapse: collapse;
+}
+
+tbody tr {
+    cursor:pointer;
 }
 
 tbody tr:hover {

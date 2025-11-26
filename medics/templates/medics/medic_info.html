@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida+</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'medics/style.css' %}">
+</head>
+<body>
+    <header>
+        <a href="{% url 'medics_list' %}" class="head_btn">
+            <img src="{% static "medics/icons/back_icon.png" %}" alt="Voltar">
+        </a>
+
+        <h2>{{ medic.name.upper }}</h2>
+    </header>
+
+    <label for="crm">
+        <h3>CRM:</h3>
+    </label>
+    <p name="crm">{{ medic.crm }}</p>
+
+    <label for="spec">
+        <h3>Especialização:</h3>
+    </label>
+    <p name="spec">{{ medic.spec }}</p>
+
+    <label for="hire_date">
+        <h3>Data de contratação:</h3>
+    </label>
+    <p name="hire_date">{{ medic.hire_date }}</p>
+    
+    <label for="exams_list">
+        <h3>Exames:</h3>
+    </label>
+
+    <div class="exams_list">
+        {% if medic.exam.exists %}
+            <table class="exams">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Data de criação</th>
+                        <th>Data agendada</th>
+                        <th>Estado</th>
+                        <th>Valor</th>
+                        <th>Pagamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in medic.exam %}
+                        <tr>
+                            <td>{{ e.exam_type }}</td>
+                            <td>{{ e.creation_date }}</td>
+                            <td>{{ e.scheduled_date }}</td>
+                            <td>{{ e.exam_status }}</td>
+                            <td>{{ e.exam_value }}</td>
+                            <td>{{ e.pay_status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p><i>Sem exames cadastrados</i></p>
+        {% endif %}
+    </div>
+
+    <div class="medic_buttons">
+        <button type="button" onclick="window.location='{% url 'update_medic' medic.crm %}'">Atualizar Cadastro</button>
+
+        <button type="button">Excluir Cadastro</button>
+    </div>
+    
+</body>
+</html>

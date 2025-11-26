@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
+    margin: 20px;
     font-family: open sans, sans-serif;
+}
+
+header {
+    margin-bottom: 20px;
 }
 
 #back_btn {
@@ -11,4 +16,34 @@ body {
 
 .head_btn img {
     width: 30px;
+}
+
+tbody {
+    border: 0px;
+    border-collapse: collapse;
+}
+
+tr {
+    cursor:pointer;
+}
+
+tbody tr:hover {
+    background-color: #dcebffff;
+}
+
+.msg {
+    width: fit-content;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.success {
+    background: #d4ffd4;
+    border: 1px solid #60c060;
+}
+
+.error {
+    background: #ffd4d4;
+    border: 1px solid #c06060;
 }

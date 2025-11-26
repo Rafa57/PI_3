@@ -27,20 +27,20 @@
     <form method="POST" id="patient_form">
         {% csrf_token %}
 
-        <label for="cpf">CPF:</label>
-        <input type="text" name="cpf" placeholder="CPF" required><br>
+        <label for="cpf">CPF:</label><br>
+        <input type="text" name="cpf" placeholder="CPF" required><br><br>
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" placeholder="Nome" required><br>
+        <label for="name">Nome:</label><br>
+        <input type="text" name="name" placeholder="Nome" required><br><br>
 
-        <label for="age">Idade:</label>
-        <input type="number" name="age" placeholder="Idade" required><br>
+        <label for="age">Idade:</label><br>
+        <input type="number" name="age" placeholder="Idade" required><br><br>
 
-        <label for="addres">Endereço:</label>
-        <input type="text" name="addres" placeholder="Endereço" required><br>
+        <label for="addres">Endereço:</label><br>
+        <input type="text" name="addres" placeholder="Endereço" required><br><br>
 
-        <label for="phone">Telefone:</label>
-        <input type="text" name="phone" placeholder="Telefone">
+        <label for="phone">Telefone:</label><br>
+        <input type="text" name="phone" placeholder="Telefone"><br><br>
 
         <button type="submit">Salvar</button>
         <button type="button" onclick="window.location='{% url 'patients_list' %}'">Voltar</button>

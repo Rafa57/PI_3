@@ -37,17 +37,17 @@
     <form method="POST">
         {% csrf_token %}
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" value="{{ patient.name }}" required><br>
+        <label for="name">Nome:</label><br>
+        <input type="text" name="name" value="{{ patient.name }}" required><br><br>
 
-        <label for="age">Idade:</label>
-        <input type="number" name="age" value="{{ patient.age }}" required><br>
+        <label for="age">Idade:</label><br>
+        <input type="number" name="age" value="{{ patient.age }}" required><br><br>
 
-        <label for="addres">Endereço:</label>
-        <input type="text" name="addres" value="{{ patient.addres }}" required><br>
+        <label for="addres">Endereço:</label><br>
+        <input type="text" name="addres" value="{{ patient.addres }}" required><br><br>
 
-        <label for="phone">Telefone:</label>
-        <input type="text" name="phone" value="{{ patient.phone }}"><br>
+        <label for="phone">Telefone:</label><br>
+        <input type="text" name="phone" value="{{ patient.phone }}"><br><br>
 
         <button type="submit">Salvar</button>
 

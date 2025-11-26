@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <a href="{% url 'medics' %}" class="head_btn">
+        <a href="{% url 'medics_list' %}" class="head_btn">
             <img src="{% static 'medics/icons/back_icon.png' %}" alt="Voltar">
         </a>
 
@@ -20,20 +20,30 @@
         <h1>Registrar Médico</h1>
     </header>
 
+    {% if error %}
+        <div class="msg error">{{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+        <div class="msg success">
+            <p>Médico cadastrado com sucesso.</p>
+        </div>
+    {% endif %}
+
     <form method="POST" id="medic_form">
         {% csrf_token %}
 
-        <label for="crm">CRM:</label>
-        <input type="text" name="crm" id="crm" required>
+        <label for="crm">CRM:</label><br>
+        <input type="text" name="crm" id="crm" required><br><br>
 
-        <label for="name">Nome:</label>
-        <input type="text" name="name" id="name" required>
+        <label for="name">Nome:</label><br>
+        <input type="text" name="name" id="name" required><br><br>
 
-        <label for="spec">Especialização:</label>
-        <input type="text" name="spec" id="spec" required>
+        <label for="spec">Especialização:</label><br>
+        <input type="text" name="spec" id="spec" required><br><br>
 
-        <label for="hire_date">Data de contratação:</label>
-        <input type="date" name="hire_date" id="hire_date" required>
+        <label for="hire_date">Data de contratação:</label><br>
+        <input type="date" name="hire_date" id="hire_date" required><br><br>
 
         <div class="btn">
             <button type="submit">Salvar</button>

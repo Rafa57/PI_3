@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, date
 import re
 
@@ -7,13 +7,18 @@ from .models import Medics
 # Create your views here.
 def medics_list(request, crm=None):
     if crm:
-        medics = [get_list_or_404(Medics, crm=crm)]
+        medics = [get_object_or_404(Medics, crm=crm)]
     else:
         medics = Medics.objects.all().prefetch_related("exams")
         
     return render(request, "medics/medics_list.html", {"medics": medics})
 
+def get_medic(request, crm):
+        medic = get_object_or_404(Medics, crm=crm)
+        return render(request, "medics/medic_info.html", {"medic": medic})
+
 def verify_form(crm, name, espec, hire_date):
+
     if not crm.isdigit():
         return "O CRM deve conter somente números"
     if len(crm) != 10:
@@ -23,7 +28,7 @@ def verify_form(crm, name, espec, hire_date):
     if not re.match(r"^[A-Za-zÀ-ÿ ]+$", name):
         return "O nome deve conter apenas letras"
     if not espec.replace(' ', '').isalpha():
-        return "O campo deve conter somente letras e espaços"
+        return "Especialização inválida. Digite somente letras e espaços"
     if hire_date:
         try:
             h_date = datetime.strptime(hire_date, "%Y-%m-%d").date()  
@@ -31,6 +36,7 @@ def verify_form(crm, name, espec, hire_date):
             return "Formato de data inválido"
         if h_date > date.today():
             return "A data não pode ser no futuro"
+    
     return None
 
 def add_medic(request):
@@ -59,7 +65,10 @@ def add_medic(request):
 
     return render(request, "medics/add_medic.html", {"error": error, "success": success})
 
-
+def update_medic(request, crm):
+    medic = get_object_or_404(Medics, crm=crm)
+    
+    return render(request, "medics/update_medics.html", {"medic": medic})
 
 
 

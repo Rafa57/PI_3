@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,28 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static "medics/style.css" %}">
+    <style>
+        table{
+            border-collapse: collapse;
+            border:1px solid #000;
+            font-size: 16px;
+        }
+        
+        tbody tr{
+            font-size: 14px;
+            cursor: pointer;
+            border-top:1px solid #0000002f;
+        }
+
+        td {
+            padding: 4px 12px 4px 12px; 
+        }
+
+        tbody tr:hover {
+            background-color: #dcebffff;
+        }
+
+    </style>
 </head>
 <body>
     <header>
@@ -19,22 +41,22 @@
         <button type="button" onclick="window.location='{% url 'add_medic' %}'">Cadastrar Médico</button>
     </header>
     
-    <table class="medics">
-        <th>
-            <tr>
+    <table class="medics" style="border: 1px solid black;">
+        <thead>
+            <tr class="t_header">
                 <th>CRM</th>
                 <th>Nome</th>
                 <th>Especialização</th>
                 <th>Data de contratação</th>
             </tr>
-        </th>
+        </thead>
 
         <tbody>
             {% for m in medics %}
-                <tr>
+                <tr id="line" onclick="window.location='{% url 'get_medic' m.crm %}'">
                     <td>{{ m.crm }}</td>
-                    <td>{{ m.name }}</td>
-                    <td>{{ m.spec }}</td>
+                    <td>{{ m.name.upper }}</td>
+                    <td>{{ m.spec.upper }}</td>
                     <td>{{ m.hire_date }}</td>
                 </tr>
             {% endfor %}

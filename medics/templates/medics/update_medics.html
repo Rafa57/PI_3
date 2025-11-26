@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida+</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static "medics/style.css" %}">
+</head>
+<body>
+    <header>
+        <a href="{% url 'get_medic' medic.crm %}" class="head_btn">
+            <img src="{% static 'medics/icons/back_icon.png' %}" alt="Voltar">
+        </a>
+        <h2 id="up_nome">{{ medic.name.upper }}</h2>
+    </header>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="name">Nome:</label><br>
+        <input type="text" value="{{ medic.name }}" id="id_name" name="name"><br><br>
+
+        <label for="spec">Especialização:</label><br>
+        <input type="text" id="id_spec" name="spec" value="{{ medic.spec }}"><br><br>
+
+        <button type="submit" >Salvar</button>
+    </form>
+</body>
+</html>
