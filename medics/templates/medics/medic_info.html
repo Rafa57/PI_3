@@ -3,7 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vida+</title>
+    <title>Clínica Vida+</title>
+    <style>
+        header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .head_btn {
+            text-decoration: none;
+            font-size: 28px;
+            color: black;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .edit-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'medics/style.css' %}">
@@ -67,11 +89,31 @@
         {% endif %}
     </div>
 
-    <div class="medic_buttons">
+    <div class="edit-buttons">
         <button type="button" onclick="window.location='{% url 'update_medic' medic.crm %}'">Atualizar Cadastro</button>
 
-        <button type="button">Excluir Cadastro</button>
+        <form action="{% url 'remove_medic' medic.crm %}" method="POST">
+            {% csrf_token %}
+            
+            <button type="submit" name='confirm' value="1">Excluir Cadastro</button>
+        </form>
     </div>
+
+    {% if confirm_del %}
+        <div class="confirm-box">
+            <p>Tem certeza que deseja apagar?</p>
+
+            <form action="{% url 'remove_medic' medic.crm %}" method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="confirmed" value="yes">
+
+                <button type="submit">Confirmar</button>
+
+                <a href="{% url 'get_medic' medic.crm %}" id="cancel_del_medic">Cancelar</a>
+            </form>
+        </div>
+    {% endif %}
     
 </body>
 </html>

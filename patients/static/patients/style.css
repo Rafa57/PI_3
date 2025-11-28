@@ -4,6 +4,27 @@ body {
     font-family: open Sans, sans-serif;
 }
 
+header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.head_btn {
+    text-decoration: none;
+    font-size: 28px;
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.edit-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #back_btn {
     background-color: #ffffff;
     border: 0;
@@ -15,10 +36,15 @@ body {
 
 table{
     border-collapse: collapse;
+    border:1px solid #000;
+    font-size: 16px;
 }
 
 tbody {
+    font-size: 14px;
+    cursor: pointer;
     border: 0px;
+    border-top:1px solid #0000002f;
     border-collapse: collapse;
 }
 
@@ -28,6 +54,10 @@ tbody tr {
 
 tbody tr:hover {
     background-color: #dcebffff;
+}
+
+td {
+    padding: 4px 12px 4px 12px; 
 }
 
 .msg {
@@ -55,4 +85,50 @@ tbody tr:hover {
     background: #c91616;
     border: 1px solid #660f0f;
     border-radius: 4px;
+}
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    padding: 12px 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    animation: fadein 0.3s ease-out;
+    font-weight: 500;
+    opacity: 0.95;
+    cursor: pointer;
+}
+
+.toast.success {
+    background-color: #4caf50;
+    color: white;
+}
+
+.toast.error {
+    background-color: #f44336;
+    color: white;
+}
+
+@keyframes fadein {
+    from { 
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 0.95;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeout {
+    from { opacity: 0.95; }
+    to { opacity: 0; }
 }

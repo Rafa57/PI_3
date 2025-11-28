@@ -4,10 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacientes</title>
+    <title>Clínica Vida+</title>
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'patients/style.css' %}">
+    <style>
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            padding: 12px 18px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            animation: fadein 0.3s ease-out;
+            font-weight: 500;
+            opacity: 0.95;
+            cursor: pointer;
+        }
+
+        .toast.success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .toast.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        @keyframes fadein {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 0.95; transform: translateY(0); }
+        }
+
+        @keyframes fadeout {
+            from {
+                opacity: 0.95;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -49,6 +94,18 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% if messages %}
+        <div class="toast-container">
+            {% for msg in messages %}
+                <div class="toast {{ msg.tags }}">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <script src="{% static 'patients/main.js' %}"></script>
     
 </body>
 

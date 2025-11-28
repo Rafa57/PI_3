@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from datetime import datetime, date
 import re
 
@@ -67,17 +68,40 @@ def add_medic(request):
 
 def update_medic(request, crm):
     medic = get_object_or_404(Medics, crm=crm)
+    error = None
+    success = False
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        spec = request.POST.get("spec")
+
+        if not re.match(r"^[A-Za-zÀ-ÿ ]+$", name):
+            error = "O nome deve conter somente letras e espaços."
+        if not re.match(r"^[A-Za-zÀ-ÿ ]+$", spec):
+            error = "A especialização deve conter somente letras e espaços."
+        
+        if not error:
+            medic.name = name
+            medic.spec = spec
+            medic.save()
+            success = True
     
-    return render(request, "medics/update_medics.html", {"medic": medic})
+    return render(request, "medics/update_medics.html", {"medic": medic, "success": success, "error": error})
 
-
-
-# if status:
-#         status_list = [
-#             "ocupado",
-#             "disponivel",
-#             "indisponivel",
-#             "aguardando"
-#         ]
-#         if status not in status_list:
-#             return "Status inválido"
+def rmv_medic(request, crm):
+    medic = get_object_or_404(Medics, crm=crm)
+    
+    if request.method == "POST":
+        if request.POST.get("confirm") == "1":
+            return render(
+                request,
+                "medics/medic_info.html", 
+                {"medic": medic, "confirm_del": True}
+            )
+        
+        if request.POST.get("confirmed") == "yes":
+            medic.delete()
+            messages.success(request, "Cadastro removido com sucesso!")
+            return redirect('medics_list')
+        
+    return render(request, "medics/medic_info.html", {"medic": medic})

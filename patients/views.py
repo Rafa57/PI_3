@@ -104,7 +104,6 @@ def rmv_patient(request, cpf):
     patient = get_object_or_404(Patients, cpf=cpf)
     
     if request.method == "POST":
-
         if request.POST.get("confirm") == "1":
             return render(
                 request,
