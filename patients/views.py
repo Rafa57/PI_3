@@ -2,22 +2,49 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from datetime import datetime
 from django.core.exceptions import ValidationError
+from django.db.models import Avg, Count, Max, Min
+import re
 
 from .models import Patients
 
 def patients_list(request, cpf=None):
+
     if cpf:
         patients = [get_object_or_404(Patients, cpf=cpf)]
     else:
         patients = Patients.objects.all().prefetch_related("exams")
-        
-    return render(request, "patients/patients_list.html", {"pacientes": patients})
+
+    return render(
+        request,
+        "patients/patients_list.html", {
+        "pacientes": patients
+    })
 
 def get_patient(request, cpf):
     patient = get_object_or_404(Patients, cpf=cpf)
+    
     return render(request, "patients/patient_info.html", {"patient": patient})
 
-def verify_form(cpf, age, phone):
+def tbl_info(request):
+    info = Patients.objects.all()
+    
+    avg_age = info.aggregate(Avg('age'))['age__avg']
+    max_age = info.aggregate(Max('age'))['age__max']
+    min_age = info.aggregate(Min('age'))['age__min']
+    qtd = info.count()
+    
+    return render(
+        request,
+        "patients/tbl_info.html", 
+        {
+            "info": info,
+            "qtd": qtd,
+            "avg_age": int(avg_age),
+            "max_age": max_age,
+            "min_age": min_age
+        })
+
+def verify_form(cpf, name, age, phone):
 
     if not cpf.isdigit():
         return "O CPF deve conter somente números"
@@ -25,6 +52,9 @@ def verify_form(cpf, age, phone):
     if len(cpf) != 11:
         return "O CPF deve conter exatamente 11 dígitos"
     
+    if not re.match(r"^[A-Za-zÀ-ÿ ]+$", name):
+        return "O nome deve conter apenas letras"
+
     if Patients.objects.filter(cpf=cpf).exists():
         return "O CPF já está cadastrado"
     
@@ -32,10 +62,11 @@ def verify_form(cpf, age, phone):
         return "Idade inválida"
     
     if phone:
-        clean_phone = phone.replace("-", "").replace(" ", "")
+        clean_phone = phone.replace("-", "").replace(" ", "").replace("(",'').replace(")",'')
+        exist_phone = Patients.objects.filter(phone=phone).exclude(cpf=cpf).exists()
         
-        if Patients.objects.filter(phone=clean_phone).exists():
-            return "Este telefone já está cadastrado."
+        if exist_phone:
+            return "O número de telefone já está cadastrado"
         if not clean_phone.isdigit():
             return "O telefone deve conter apenas números."
         if len(clean_phone) < 8 or len(clean_phone) > 11:
@@ -54,7 +85,7 @@ def add_patient(request):
         addres = request.POST.get("addres")
         phone = request.POST.get("phone")
 
-        error = verify_form(cpf, age, phone)
+        error = verify_form(cpf, name, age, phone)
 
         if not error:
             Patients.create_patient(cpf, name, age, addres, phone)
@@ -79,6 +110,9 @@ def update_patient(request, cpf):
 
         clean_phone = phone.replace(' ', '').replace('-', '')
 
+        if not re.match(r"^[A-Za-zÀ-ÿ\s]+$", name):
+           error = "O nome deve conter apenas letras"
+
         if not error and clean_phone and not clean_phone.isdigit():
             error = "O telefone deve conter apenas números."
         
@@ -86,9 +120,10 @@ def update_patient(request, cpf):
             if len(clean_phone) < 8 or len(clean_phone) > 11:
                 error = "Número inválido."
         
-        exist_patient = Patients.objects.filter(phone=phone).exclude(cpf=cpf).exists()
-        if not error and exist_patient:
-            error = "O número de telefone já está cadastrado"
+        if not error:
+            exist_phone = Patients.objects.filter(phone=phone).exclude(cpf=cpf).exists()
+            if exist_phone:
+                error = "O número de telefone já está cadastrado"
 
         if not error:
             patient.name = name

@@ -60,16 +60,13 @@
             <img src="{% static 'patients/icons/back_icon.png' %}" alt="Voltar">
         </a>
 
-        {% comment %} 
-        <button onclick="window.location='{% url 'home' %}'" id="back_btn">
-            window.location também funciona dentro de aspas
-        </button> 
-        {% endcomment %}
-
         <h1>Pacientes</h1>
-        
-        <button type="button" onclick=window.location="{% url 'add_patient' %}">Cadastrar Paciente</button>
     </header>
+
+    <div class="tbl-control">
+        <button type="button" onclick=window.location="{% url 'add_patient' %}">Cadastrar Paciente</button>
+        <button type="button" onclick="window.location='{% url 'tbl_info' %}'">Ver estatísticas</button>
+    </div>
     
     <table style="border: 1px solid black;">
         <thead>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Vida+</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'patients/style.css' %}">
+</head>
+<body>
+    <header>
+        <a href="{% url 'patients_list' %}" class="head_btn">
+            <img src="{% static 'patients/icons/back_icon.png' %}" alt="Voltar">
+        </a>
+
+        <h1>Estatísticas</h1>
+    </header>
+
+    <div class="tbl-info">
+        <p>Cadastros: {{ qtd }} </p>
+        <p>Média de idade: {{ avg_age }} </p>
+        <p>Paciente mais velho: {{ max_age }} </p>
+        <p>Paciente mais novo: {{ min_age }} </p>
+    </div>
+</body>
+</html>
