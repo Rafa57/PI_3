@@ -2,6 +2,7 @@
 
 body {
     font-family: open Sans, sans-serif;
+    margin: 20px;
 }
 
 header {
@@ -131,4 +132,14 @@ td {
 @keyframes fadeout {
     from { opacity: 0.95; }
     to { opacity: 0; }
+}
+
+.tbl-control {
+    margin-bottom: 60px;
+
+}
+
+.tbl-filter {
+    margin: 0px 0px 10px 10px;
+    
 }

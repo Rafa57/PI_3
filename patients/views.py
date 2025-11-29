@@ -4,8 +4,15 @@ from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.db.models import Avg, Count, Max, Min
 import re
+import unicodedata
 
 from .models import Patients
+
+def normalize(text):
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', text)
+        if unicodedata.category(c) != 'Mn'
+    )
 
 def patients_list(request, cpf=None):
 
@@ -14,6 +21,16 @@ def patients_list(request, cpf=None):
     else:
         patients = Patients.objects.all().prefetch_related("exams")
 
+    name_filter = request.GET.get("tbl-filter")
+    
+    if name_filter:
+        name_filter = normalize(name_filter).lower()
+
+        patients = [
+            p for p in patients 
+            if name_filter in normalize(p.name).lower()
+        ]
+        
     return render(
         request,
         "patients/patients_list.html", {
@@ -27,10 +44,11 @@ def get_patient(request, cpf):
 
 def tbl_info(request):
     info = Patients.objects.all()
-    
+
     avg_age = info.aggregate(Avg('age'))['age__avg']
-    max_age = info.aggregate(Max('age'))['age__max']
-    min_age = info.aggregate(Min('age'))['age__min']
+
+    older = Patients.objects.order_by('-age').first()
+    younger = Patients.objects.order_by('age').first()
     qtd = info.count()
     
     return render(
@@ -40,8 +58,8 @@ def tbl_info(request):
             "info": info,
             "qtd": qtd,
             "avg_age": int(avg_age),
-            "max_age": max_age,
-            "min_age": min_age
+            "older": older,
+            "younger": younger
         })
 
 def verify_form(cpf, name, age, phone):

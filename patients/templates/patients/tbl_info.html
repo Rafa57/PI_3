@@ -7,6 +7,12 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'patients/style.css' %}">
+
+    <style>
+        .info_sub{
+            font-weight: 800 ;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,10 +24,21 @@
     </header>
 
     <div class="tbl-info">
-        <p>Cadastros: {{ qtd }} </p>
-        <p>Média de idade: {{ avg_age }} </p>
-        <p>Paciente mais velho: {{ max_age }} </p>
-        <p>Paciente mais novo: {{ min_age }} </p>
+        <p><strong>Cadastros:</strong> {{ qtd }} </p>
+
+        <p><strong>Média de idade:</strong> {{ avg_age }}</p>
+        
+        <p><strong>Paciente mais velho:</strong></p>
+        <div style="margin-left: 24px;">
+            <p><strong>Nome:</strong> {{ older.name}} </p>
+            <p><strong>idade:</strong> {{older.age}} </p>
+        </div>
+        
+        <p><strong>Paciente mais jovem:</strong></p>
+        <div style="margin-left: 24px;">
+            <p><strong>Nome:</strong> {{ younger.name}} </p>
+            <p><strong>idade:</strong> {{younger.age}} </p>
+        </div>
     </div>
 </body>
 </html>

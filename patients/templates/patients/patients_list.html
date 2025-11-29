@@ -9,6 +9,11 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'patients/style.css' %}">
     <style>
+
+        body {
+            font-family: open Sans, sans-serif;
+            margin: 20px;
+        }
         .toast-container {
             position: fixed;
             top: 20px;
@@ -44,13 +49,20 @@
             to { opacity: 0.95; transform: translateY(0); }
         }
 
-        @keyframes fadeout {
-            from {
-                opacity: 0.95;
-            }
-            to {
-                opacity: 0;
-            }
+        .tbl-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .tbl-control button {
+            height: 22px;
+        }
+
+        .tbl-filter {
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -63,34 +75,46 @@
         <h1>Pacientes</h1>
     </header>
 
-    <div class="tbl-control">
-        <button type="button" onclick=window.location="{% url 'add_patient' %}">Cadastrar Paciente</button>
-        <button type="button" onclick="window.location='{% url 'tbl_info' %}'">Ver estatísticas</button>
-    </div>
-    
-    <table style="border: 1px solid black;">
-        <thead>
-            <tr class="t_header">
-                <th>CPF</th>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Endereço</th>
-                <th>Telefone</th>
-            </tr>
-        </thead>
+    <div class="table-info">
+        <div class="tbl-control">
+            
+            <form method="GET" class="tbl-filter">
 
-        <tbody>
-            {% for p in pacientes %}
-                <tr onclick=window.location="{% url 'get_patient' p.cpf %}">
-                    <td>{{ p.cpf }}</td>
-                    <td>{{ p.name.upper }}</td>
-                    <td>{{ p.age }}</td>
-                    <td>{{ p.addres }}</td>
-                    <td>{{ p.phone }}</td>
+                <label for="tbl-filter">Filtrar</label>
+                
+                <input type="text" name="tbl-filter" class="tbl-filter" placeholder="Nome">
+                <button type="submit">Buscar</button>
+                
+                <button type="button" onclick=window.location="{% url 'add_patient' %}">Cadastrar Paciente</button>
+                <button type="button" onclick="window.location='{% url 'tbl_info' %}'">Ver estatísticas</button>
+            </form>
+
+        </div>
+
+        <table style="border: 1px solid black;">
+        
+            <thead>
+                <tr class="t_header">
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for p in pacientes %}
+                    <tr onclick=window.location="{% url 'get_patient' p.cpf %}">
+                        <td>{{ p.cpf }}</td>
+                        <td>{{ p.name.upper }}</td>
+                        <td>{{ p.age }}</td>
+                        <td>{{ p.addres }}</td>
+                        <td>{{ p.phone }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     {% if messages %}
         <div class="toast-container">
