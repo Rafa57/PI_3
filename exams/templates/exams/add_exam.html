@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Vida+</title>
+    {% load static %}
+    <link rel="stylesheet" href=" {% static "exams/style.css" %} ">
+
+    <style>
+        body {
+            margin: 20px;
+            font-family: open sans, sans-serif;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .head_btn {
+            text-decoration: none;
+            font-size: 28px;
+            color: black;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .back_btn {
+            background-color: #ffffff;
+            border: 0;
+        }
+
+        .head_btn img {
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'exams_list' %}" class="back_btn head_btn">
+            <img src="{% static 'exams/icons/back_icon.png' %}" alt="">
+        </a>
+
+        <h1>Cadastro de exames</h1>
+    </header>
+    
+    <section>
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="e_type">Tipo: </label><br>
+            <input type="text" name="e_type" id="e_type"><br><br>
+            
+            <label for="patient">Paciente: </label><br>
+            <input type="text" name="patient" id="patient"><br><br>
+            
+            <label for="medic">Médico: </label><br>
+            <input type="text" name="medic" id="medic"><br><br>
+            
+            <label for="scdl">Data: </label><br>
+            <input type="date" name="scdl" id="scdl"><br><br>
+            
+            <label for="e_status">Estado: </label><br>
+            <input type="text" name="e_status" id="e_status"><br><br>
+            
+            <label for="e_value">Valor: </label><br>
+            <input type="number" name="e_value" id="e_value"><br><br>
+            
+            <label for="pay_status">Pagamento: </label><br>
+            <input type="text" name="pay_status" id="pay_status"><br><br>
+
+            <button type="submit">Salvar</button>
+            
+        </form>
+    </section>
+</body>
+</html>

@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clínica Vida+</title>
     <style>
+        body {
+            margin: 20px;
+            font-family: open sans, sans-serif;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .head_btn {
+            text-decoration: none;
+            font-size: 28px;
+            color: black;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .back_btn {
+            background-color: #ffffff;
+            border: 0;
+        }
+
+        .head_btn img {
+            width: 30px;
+        }
+
         .msg {
             width: fit-content;
             padding: 20px;
@@ -21,13 +50,23 @@
     <link rel="stylesheet" href=" {% static 'exams/style.css' %} ">
 </head>
 <body>
-    <h1>Lista de Exames</h1>
+    <header>
+        <a href="{% url 'home' %}" class="back_btn head_btn">
+            <img src="{% static 'exams/icons/back_icon.png' %}" alt="">
+        </a>
+
+        <h1>Lista de Exames</h1>
+    </header>
 
     {% if not_found %}
         <p class="msg error">Não foi possível encontrar o exame.</p>
     {% endif %}
 
     <section class="table-info">
+
+        <div class="table-control">
+            <a href="{% url 'add_exam' %}">Agendar exame</a>
+        </div>
         <table id="exam_tbl">
             <tr>
                 <th>Tipo de exame</th>

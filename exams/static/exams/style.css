@@ -1,0 +1,28 @@
+body {
+    margin: 20px;
+    font-family: open sans, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.head_btn {
+    text-decoration: none;
+    font-size: 28px;
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.back_btn {
+    background-color: #ffffff;
+    border: 0;
+}
+
+.head_btn img {
+    width: 30px;
+}
