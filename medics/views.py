@@ -15,8 +15,8 @@ def medics_list(request, crm=None):
     return render(request, "medics/medics_list.html", {"medics": medics})
 
 def get_medic(request, crm):
-        medic = get_object_or_404(Medics, crm=crm)
-        return render(request, "medics/medic_info.html", {"medic": medic})
+    medic = get_object_or_404(Medics, crm=crm)
+    return render(request, "medics/medic_info.html", {"medic": medic})
 
 def verify_form(crm, name, espec, hire_date):
 

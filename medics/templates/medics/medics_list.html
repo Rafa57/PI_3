@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="{% static "medics/style.css" %}">
     <style>
         .toast-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .toast {
@@ -39,8 +39,14 @@
         }
 
         @keyframes fadein {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 0.95; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 0.95;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeout {
@@ -50,6 +56,11 @@
             to {
                 opacity: 0;
             }
+        }
+
+        table {
+            min-width: 70vw;
+            text-align: center;
         }
     </style>
 </head>
@@ -82,6 +93,10 @@
                     <td>{{ m.name.upper }}</td>
                     <td>{{ m.spec.upper }}</td>
                     <td>{{ m.hire_date }}</td>
+                </tr>
+            {% empty %}
+                <tr style="text-align: center;">
+                    <td colspan="4"><i>Nenhum médico cadastrado.</i></td>
                 </tr>
             {% endfor %}
         </tbody>

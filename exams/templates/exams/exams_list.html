@@ -1,38 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Exames</title>
+    <title>Clínica Vida+</title>
+    <style>
+        .msg {
+            width: fit-content;
+            padding: 20px;
+        }
+
+        .error {
+            border: 2px solid #911e1eff;
+            background-color: #c51212c9;
+            color: #fff;
+        }
+    </style>
+
+    {% load static %}
+    <link rel="stylesheet" href=" {% static 'exams/style.css' %} ">
 </head>
 <body>
     <h1>Lista de Exames</h1>
 
-    <table id="exam_tbl">
-        <tr>
-            <th>Tipo de exame</th>
-            <th>Paciente</th>
-            <th>Médico</th>
-            <th>Data de criação</th>
-            <th>Data agendada</th>
-            <th>Estatus</th>
-            <th>Valor</th>
-            <th>Pagamento</th>
-        </tr>
+    {% if not_found %}
+        <p class="msg error">Não foi possível encontrar o exame.</p>
+    {% endif %}
 
-        <tbody>
-            {% for exam in exams %}
-                <tr>
-                    <td>{% exames.exam_type %}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        {% for exame in exames %}
-            <li>{{ exame.exam_type }}</li>
-        {% endfor %}
-    </ul>
+    <section class="table-info">
+        <table id="exam_tbl">
+            <tr>
+                <th>Tipo de exame</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Data de criação</th>
+                <th>Data agendada</th>
+                <th>Estatus</th>
+                <th>Valor</th>
+                <th>Pagamento</th>
+            </tr>
+            <tbody>
+                {% for exam in exams %}
+                    <tr>
+                        <td> {{ exam.exam_type_display|upper }} </td>
+                        <td> {{ exam.patient.name.upper }} </td>
+                        <td> {{ exam.medic.name.upper }} </td>
+                        <td> {{ exam.creation_date|date:"d/m/y H:i" }} </td>
+                        <td> {{ exam.scheduled_exam|date:"d/m/y H:i" }} </td>
+                        <td> {{ exam.exam_status_display|upper }} </td>
+                        <td>R$ {{ exam.exam_value }} </td>
+                        <td> {{ exam.get_pay_status_display|upper }} </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="8">Nenhum exame cadastrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

@@ -2,6 +2,9 @@ from django.db import models
 from patients.models import Patients
 from medics.models import Medics
 
+from django.core.validators import MinValueValidator
+from decimal import Decimal
+
 # Create your models here.
 
 class Exams(models.Model):
@@ -25,13 +28,33 @@ class Exams(models.Model):
         ("em_andamento", "Em andamento"),
         ("pago", "Pago")
     ]
-
-    exam_type = models.CharField(max_length=100, choices=EXAM_TYPES)
-    creation_date = models.DateTimeField(auto_now_add=True)
-    scheduled_exam = models.DateTimeField(null=False, blank=False)
-    exam_status = models.CharField(max_length=50, choices=STATUS_CHOICES)
-    exam_value = models.FloatField(null=False, blank=False, default=0.0)
-    pay_status = models.CharField(max_length=50, choices=PAYMENT_STATUS,  default="pendente")
+    
+    exam_type = models.CharField(
+        max_length=100,
+        choices=EXAM_TYPES
+    )
+    creation_date = models.DateTimeField(
+        auto_now_add=True
+    )
+    scheduled_exam = models.DateTimeField(
+        null=False,
+        blank=False
+    )
+    exam_status = models.CharField(
+        max_length=50,
+        choices=STATUS_CHOICES
+    )
+    exam_value = models.DecimalField(
+        max_digits = 10,
+        decimal_places = 2,
+        validators = [MinValueValidator(Decimal('0.00'))],
+        default=0.00
+    )
+    pay_status = models.CharField(
+        max_length=50,
+        choices=PAYMENT_STATUS,
+        default="pendente"
+    )
 
     patient = models.ForeignKey(
         Patients,
@@ -60,9 +83,9 @@ class Exams(models.Model):
             pay_status = pay_status
         )
         
-        new_exam.save()
         return f"Exame '{new_exam.exam_type}' para o paciente {patient.name} criado com sucesso!"
 
-    
     def __str__(self):
-        return f"Tipo: {self.exam_type} | Paciente: {self.patient.name} | Médico: {self.medic.name}"
+        patient_name = self.patient.name if self.patient else "Sem paciente"
+
+        return f"Tipo: {self.get_exam_type_display()} | Paciente: {patient_name} | Médico: {self.medic.name}"
